@@ -1,5 +1,3 @@
-import * as React from 'react';
+import { createStore } from 'easy-peasy';
 
-const store: React.FC = () => <div>hello</div>;
-
-export default store;
+export default {};
