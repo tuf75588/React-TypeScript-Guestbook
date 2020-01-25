@@ -1,4 +1,6 @@
 import { createTypedHooks } from 'easy-peasy';
-import GuestBookStore from '../interfaces/Store';
+import Store from '../interfaces/Store';
 
-const typedHooks = createTypedHooks<GuestBookStore>();
+const typedHooks = createTypedHooks<Store>();
+
+export const { useStoreActions, useStoreState, useStoreDispatch } = typedHooks;

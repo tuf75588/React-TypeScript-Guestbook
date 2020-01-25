@@ -1,16 +1,19 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react';
-import { Switch, Route, Redirect, Link, useLocation } from 'react-router-dom';
+import { useLocation, Switch, Route, useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import useStyles from './utils';
+import Home from '../Home/index';
 // root of application, using nav bar component from material ui
 
 const App: React.FC = () => {
-  const location = useLocation();
+  const history = useHistory();
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -24,13 +27,19 @@ const App: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Button color="inherit" onClick={() => history.push('/')}>
             Home
-          </Typography>
-          <Button color="inherit">Login</Button>
+          </Button>
+          <Button color="inherit" onClick={() => history.push('/about')}>
+            About
+          </Button>
         </Toolbar>
       </AppBar>
-      <h1>ayy</h1>
+      <div>
+        <Switch>
+          <Route path="/" exact component={Home} />
+        </Switch>
+      </div>
     </div>
   );
 };
