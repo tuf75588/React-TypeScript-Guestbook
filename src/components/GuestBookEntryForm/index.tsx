@@ -3,37 +3,57 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import useStyles from './styles';
+import GuestBookEntry from '../../interfaces/GuestBookEntry';
+
+const GuestBookEntrySchema = yup.object().shape({
+  name: yup
+    .string()
+    .trim()
+    .required(),
+  content: yup
+    .string()
+    .min(10)
+    .max(200)
+    .required(),
+});
 
 const GuestBookEntryForm: React.FC = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any): void => {
-    console.log(data);
-  };
+  const { register, handleSubmit, errors } = useForm<GuestBookEntry>({
+    validationSchema: GuestBookEntrySchema,
+  });
+
+  const onSubmit = handleSubmit(({ name, content }) => {
+    // eslint-disable-next-line
+
+    console.log({ name, content, id: Date.now(), created: new Date() });
+  });
+
   const classes = useStyles();
-  const refs = React.useRef();
+
+  //! for our validation to play nice with typescript, we coerce the error prop to a boolean
+  //! e.g error={!!errors.name}
   return (
-    <form
-      noValidate
-      className={classes.formContainer}
-      onSubmit={() => handleSubmit(onSubmit)}
-    >
+    <form noValidate className={classes.formContainer} onSubmit={onSubmit}>
       <TextField
         label="name"
         inputRef={register}
         name="name"
         fullWidth
         variant="outlined"
+        error={!!errors.name}
       />
       <TextField
         label="Message"
         inputRef={register}
         multiline
-        name="name"
+        name="content"
         rows="4"
         fullWidth
         variant="outlined"
+        error={!!errors.content}
       />
       <Box display="flex" justifyContent="flex-end">
         <Button variant="contained" type="submit" color="primary">

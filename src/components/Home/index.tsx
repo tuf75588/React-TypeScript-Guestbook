@@ -11,13 +11,14 @@ const Home: React.FC = () => {
     <div>
       <GuestBookEntryForm />
       {entries.map((entry) => (
-        <Card key={entry.name} className={classes.entryCard}>
+        <Card key={entry.id} className={classes.entryCard}>
           <CardContent>
             <Typography variant="h2">{entry.name}</Typography>
             <Typography variant="body1">{entry.content}</Typography>
             <Typography variant="caption">
-              {entry.created.toLocaleTimeString()}
+              {entry.created ? entry.created.toLocaleTimeString() : ''}
             </Typography>
+            <pre>{entry.id}</pre>
           </CardContent>
         </Card>
       ))}
