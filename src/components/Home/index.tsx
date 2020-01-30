@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
 import { useStoreState } from '../../hooks/index';
 import useStyles from './style';
@@ -6,7 +6,6 @@ import GuestBookEntryForm from '../GuestBookEntryForm';
 
 const Home: React.FC = () => {
   const entries = useStoreState((state) => state.guestbook.entries);
-  console.log('entries', entries);
   const classes = useStyles();
   return (
     <div>
