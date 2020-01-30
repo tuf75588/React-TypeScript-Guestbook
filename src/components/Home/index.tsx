@@ -6,6 +6,7 @@ import GuestBookEntryForm from '../GuestBookEntryForm';
 
 const Home: React.FC = () => {
   const entries = useStoreState((state) => state.guestbook.entries);
+  console.log('entries', entries);
   const classes = useStyles();
   return (
     <div>
