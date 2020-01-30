@@ -23,14 +23,15 @@ const GuestBookEntrySchema = yup.object().shape({
 });
 
 const GuestBookEntryForm: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm<GuestBookEntry>({
+  const { register, handleSubmit, errors, reset } = useForm<GuestBookEntry>({
     validationSchema: GuestBookEntrySchema,
   });
   const addEntry = useStoreActions((actions) => actions.guestbook.addEntry);
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit((data: GuestBookEntry): void => {
     // eslint-disable-next-line
     addEntry(data);
+    reset();
   });
 
   const classes = useStyles();
